@@ -71,7 +71,11 @@
     <Content Include="App_Data\test_log.ldf">
       <DependentUpon>test.mdf</DependentUpon>
     </Content>
-    <Content Include="db\users.sql" />
+    <Content Include="db\user\calls.sql" />
+    <Content Include="db\user\create-update-pro.sql" />
+    <Content Include="db\user\delete.sql" />
+    <Content Include="db\user\table.sql" />
+    <Content Include="db\user\ValidateUserInputs.sql" />
     <Content Include="index.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
