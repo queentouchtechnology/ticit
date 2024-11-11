@@ -11,18 +11,8 @@ BEGIN
 
         -- Delete corresponding data in child tables (orders, transactions, etc.)
     
-
-        -- Example: Remove user's transactions
-        --DELETE FROM Transactions
-        --WHERE UserID = @UserID;
-
-        -- Example: Remove user's profile data (if applicable)
-        --DELETE FROM UserProfiles
-        --WHERE UserID = @UserID;
-
-        ---- Example: Remove user's preferences (if applicable)
-        --DELETE FROM UserPreferences
-        --WHERE UserID = @UserID;
+        DELETE FROM Transactions
+        WHERE UserID = @UserID;
 
         -- Finally, delete the user from the Users table
         DELETE FROM Users

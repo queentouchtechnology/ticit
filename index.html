@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Call to WebMethod</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Upsert User</h2>
+    <label for="username">Username:</label>
+    <input type="text" id="username" placeholder="Enter username"><br><br>
+
+    <label for="passwordHash">Password:</label>
+    <input type="password" id="passwordHash" placeholder="Enter password"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter email"><br><br>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" placeholder="Enter phone number"><br><br>
+
+    <label for="userType">User Type:</label>
+    <select id="userType">
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+    </select><br><br>
+
+    <label for="walletBalance">Wallet Balance:</label>
+    <input type="number" id="walletBalance" placeholder="Enter wallet balance" value="100.00"><br><br>
+
+    <label for="discountPercentage">Discount Percentage:</label>
+    <input type="number" id="discountPercentage" placeholder="Enter discount percentage" value="10"><br><br>
+
+    <button onclick="callApi()">Call API</button>
+
+    <h2>Delete User</h2>
+    <label for="userID">User ID to Delete:</label>
+    <input type="number" id="userID" placeholder="Enter User ID to delete"><br><br>
+
+    <button onclick="deleteusercall()">Delete User</button>
+
+    <p id="response"></p>
+
+    <script>
+        function callApi() {
+            alert('Retrieve user input values from the HTML form');
+            // Retrieve user input values from the HTML form
+            var username = $('#username').val();
+            var passwordHash = $('#passwordHash').val();
+            var email = $('#email').val();
+            var phone = $('#phone').val();
+            var userType = $('#userType').val();
+            var walletBalance = $('#walletBalance').val();
+            var discountPercentage = $('#discountPercentage').val();
+
+            console.log('Sending UpsertUser request with data:', {
+                Username: username,
+                PasswordHash: passwordHash,
+                Email: email,
+                Phone: phone,
+                UserType: userType,
+                WalletBalance: walletBalance,
+                DiscountPercentage: discountPercentage
+            });
+
+            $.ajax({
+                url: '/Handlers/User.ashx',
+                type: 'POST',
+                data: {
+                    action: 'UpsertUser',
+                    Username: username,
+                    PasswordHash: passwordHash,
+                    Email: email,
+                    Phone: phone,
+                    UserType: userType,
+                    WalletBalance: walletBalance,
+                    DiscountPercentage: discountPercentage
+                },
+                success: function (response) {
+                    console.log('Response from server:', response);  // Success or error message
+                    $('#response').text(response);  // Show response message in the paragraph
+                },
+                error: function (xhr, status, error) {
+                    console.log('Request failed:', error);
+                    $('#response').text('Error: ' + error);  // Show error message in the paragraph
+                }
+            });
+        }
+
+        function deleteusercall() {
+            var userID = $('#userID').val();  // Retrieve the User ID to delete
+
+            console.log('Sending RemoveUser request with UserID:', userID);
+
+            $.ajax({
+                url: '/Handlers/User.ashx',
+                type: 'POST',
+                data: {
+                    action: 'RemoveUser',
+                    UserID: userID  // Pass the User ID to delete
+                },
+                success: function (response) {
+                    console.log('Response from server:', response);  // Success or error message
+                    $('#response').text(response);  // Show response message in the paragraph
+                },
+                error: function (xhr, status, error) {
+                    console.log('Request failed:', error);
+                    $('#response').text('Error: ' + error);  // Show error message in the paragraph
+                }
+            });
+        }
+    </script>
+</body>
+</html>
