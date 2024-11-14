@@ -1,0 +1,7 @@
+CREATE TABLE dbo.Logindetails(
+ActivityID INT IDENTITY(1,1) PRIMARY KEY,
+UserName NVARCHAR(255),
+LoginTime DATETIME,
+IsSuccess BIT,
+IPAddress NVARCHAR(50)
+)

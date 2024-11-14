@@ -1,4 +1,4 @@
-drop table Users 
+
 CREATE TABLE dbo.Users (
     UserID INT IDENTITY(1,1) PRIMARY KEY,
     Username VARCHAR(50) NOT NULL,
@@ -15,4 +15,3 @@ CREATE TABLE dbo.Users (
 
 INSERT INTO Users (Username,PasswordHash,Email,Phone) VALUES ('RANJITH','RANJITH@22','nitranjith2019@gmail.com','6382824749');
 
-SELECT * FROM Users;

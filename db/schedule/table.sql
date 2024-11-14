@@ -1,0 +1,10 @@
+CREATE TABLE dbo.Schedules(
+ScheduleID INT IDENTITY(1,1) PRIMARY KEY,
+BusID INT,
+RouteID INT,
+DepartureTime DATETIME,
+ArrivalTime DATETIME,
+Fare DECIMAL(10,2)
+FOREIGN KEY (BusID) REFERENCES dbo.Buses(BusID),
+FOREIGN KEY (RouteID) REFERENCES dbo.Routes(RouteID)
+)

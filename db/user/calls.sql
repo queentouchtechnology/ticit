@@ -35,3 +35,8 @@ EXEC RemoveUserAndRelatedData
 -- Print the response message
 PRINT @Response;  -- Outputs: "OK,User and corresponding data deleted successfully." or "Error,error_message"
 
+SELECT * FROM Users;
+
+--Read User procedure
+EXEC dbo.ReadUser 
+    @UserID = 5 

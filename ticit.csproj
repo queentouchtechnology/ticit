@@ -71,14 +71,72 @@
     <Content Include="App_Data\test_log.ldf">
       <DependentUpon>test.mdf</DependentUpon>
     </Content>
+    <Content Include="db\Booking\calls.sql" />
+    <Content Include="db\Booking\create-update.sql" />
+    <Content Include="db\Booking\delete.sql" />
+    <Content Include="db\Booking\read.sql" />
+    <Content Include="db\Booking\table.sql" />
+    <Content Include="db\Booking\validateBookingInputs.sql" />
+    <Content Include="db\bus\calls.sql" />
+    <Content Include="db\bus\create-update.sql" />
+    <Content Include="db\bus\delete.sql" />
+    <Content Include="db\bus\read.sql" />
+    <Content Include="db\bus\table.sql" />
+    <Content Include="db\bus\validateBusesInputs.sql" />
+    <Content Include="db\cancellation\calls.sql" />
+    <Content Include="db\cancellation\create-update.sql" />
+    <Content Include="db\cancellation\delete.sql" />
+    <Content Include="db\cancellation\read.sql" />
+    <Content Include="db\cancellation\table.sql" />
+    <Content Include="db\cancellation\validateCancellationInputs.sql" />
+    <Content Include="db\feedback\calls.sql" />
+    <Content Include="db\feedback\create-update.sql" />
+    <Content Include="db\feedback\delete.sql" />
+    <Content Include="db\feedback\read.sql" />
+    <Content Include="db\feedback\table.sql" />
+    <Content Include="db\feedback\validateFeedbackInputs.sql" />
+    <Content Include="db\functions\setlogin.sql" />
+    <Content Include="db\loginactivity\calls.sql" />
+    <Content Include="db\loginactivity\create-update.sql" />
+    <Content Include="db\loginactivity\delete.sql" />
+    <Content Include="db\loginactivity\read.sql" />
+    <Content Include="db\loginactivity\table.sql" />
+    <Content Include="db\loginactivity\validateLoginActivityInputs.sql" />
+    <Content Include="db\payment\calls.sql" />
+    <Content Include="db\payment\create-update.sql" />
+    <Content Include="db\payment\delete.sql" />
+    <Content Include="db\payment\read.sql" />
+    <Content Include="db\payment\table.sql" />
+    <Content Include="db\payment\validatePaymentInputs.sql" />
+    <Content Include="db\route\calls.sql" />
+    <Content Include="db\route\create-update.sql" />
+    <Content Include="db\route\delete.sql" />
+    <Content Include="db\route\read.sql" />
+    <Content Include="db\route\table.sql" />
+    <Content Include="db\route\validateRoutesInputs.sql" />
+    <Content Include="db\schedule\calls.sql" />
+    <Content Include="db\schedule\create-update.sql" />
+    <Content Include="db\schedule\delete.sql" />
+    <Content Include="db\schedule\read.sql" />
+    <Content Include="db\schedule\table.sql" />
+    <Content Include="db\schedule\validateSchedulesInputs.sql" />
+    <Content Include="db\Seat\calls.sql" />
+    <Content Include="db\Seat\create-update.sql" />
+    <Content Include="db\Seat\delete.sql" />
+    <Content Include="db\Seat\read.sql" />
+    <Content Include="db\Seat\table.sql" />
+    <Content Include="db\Seat\validateSeatInputs.sql" />
+    <Content Include="db\transation\calls.sql" />
     <Content Include="db\transation\create-update.sql" />
-    <Content Include="db\transation\Transaction.sql" />
-    <Content Include="db\transation\validateUserInput.sql" />
+    <Content Include="db\transation\read.sql" />
+    <Content Include="db\transation\table.sql" />
+    <Content Include="db\transation\validateTransactionsInputs.sql" />
     <Content Include="db\user\calls.sql" />
-    <Content Include="db\user\create-update-pro.sql" />
+    <Content Include="db\user\create-update.sql" />
     <Content Include="db\user\delete.sql" />
+    <Content Include="db\user\read.sql" />
     <Content Include="db\user\table.sql" />
-    <Content Include="db\user\ValidateUserInputs.sql" />
+    <Content Include="db\user\validateUserInputs.sql" />
     <Content Include="index.html" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -98,7 +156,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="db\user\list.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="db\transation\delete.sql" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

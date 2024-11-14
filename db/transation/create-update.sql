@@ -1,68 +1,44 @@
-
 CREATE OR ALTER PROCEDURE dbo.UpsertTransaction
-    @TransactionID INT = NULL,          -- Input: NULL for new transactions
+    @TransactionID INT = NULL,  -- NULL means insert a new record
     @UserID INT,
-    @TransactionDate DATE = NULL,       -- Optional: You can provide the transaction date
-    @Amount DECIMAL(10,2),
+    @Amount DECIMAL(10, 2),
     @TransactionType VARCHAR(50),
-    @Description VARCHAR(255)
+    @Description VARCHAR(255),
+    @ResponseMessage VARCHAR(255) OUTPUT-- Output parameter to return the message
 AS
 BEGIN
-    SET NOCOUNT ON;
+    BEGIN 
+        -- Initialize the response message with a default validation message     
 
-    -- Validate input parameters by calling the validation procedure
-    EXEC dbo.ValidateTransaction @UserID = UserID, @Amount = Amount, @TransactionType = Transactions, @Description = Description;
+        -- Step 1: Validate the inputs
+        EXEC dbo.ValidateTransactionInput @UserID, @Amount, @TransactionType, @Description, @ResponseMessage OUTPUT;
+          IF @ResponseMessage='OK' 
+    BEGIN
 
-    -- Start a transaction to ensure atomicity
-    BEGIN TRY
-        BEGIN TRANSACTION;
-
-        -- If @TransactionID is provided, check if the transaction exists for UPDATE
-        IF @TransactionID IS NOT NULL AND EXISTS (SELECT 1 FROM dbo.Transactions WHERE TransactionID = @TransactionID)
-        BEGIN
-            -- If exists, update the record
-            UPDATE dbo.Transactions
-            SET 
-                UserID = @UserID,
-                TransactionDate = ISNULL(@TransactionDate, GETDATE()),  -- Default to current date if not provided
-                Amount = @Amount,
-                TransactionType = @TransactionType,
-                Description = @Description
-            WHERE TransactionID = @TransactionID;
+    IF @TransactionID IS NULL
+    BEGIN
+      INSERT INTO dbo.Transactions (UserID, Amount, TransactionType, Description)
+        VALUES (@UserID, @Amount, @TransactionType, @Description);
+        SET @ResponseMessage = 'Transaction successfully Addedd.';
         END
         ELSE
         BEGIN
-            -- If not exists, insert a new record
-            INSERT INTO dbo.Transactions (UserID, TransactionDate, Amount, TransactionType, Description)
-            VALUES (@UserID, ISNULL(@TransactionDate, GETDATE()), @Amount, @TransactionType, @Description);
+         -- Update the existing record
+        UPDATE dbo.Transactions
+        SET 
+            UserID = @UserID,
+            Amount = @Amount,
+            TransactionType = @TransactionType,
+            Description = @Description
+        WHERE TransactionID = @TransactionID;
+
+        -- Set response message for update
+        SET @ResponseMessage = 'Transaction successfully updated.';
         END
-
-        -- Commit the transaction if no errors
-        COMMIT TRANSACTION;
-
-        -- Optionally, return the TransactionID of the upserted record
-        IF @TransactionID IS NULL
-        BEGIN
-            SET @TransactionID = SCOPE_IDENTITY();  -- Get the newly inserted TransactionID
-        END
-
-        -- Return the result
-        SELECT @TransactionID AS TransactionID;
-
-    END TRY
-    BEGIN CATCH
-        -- If any error occurs, roll back the transaction
-        ROLLBACK TRANSACTION;
-        RAISERROR('An error occurred while processing the transaction.', 16, 1);
-    END CATCH
+    END 
+     ELSE
+    BEGIN
+       select @ResponseMessage;
+    END
+    END
 END;
-
-EXEC dbo.UpsertTransaction 
-    @TransactionID = NULL, 
-    @UserID = 123, 
-    @Amount = 100.00, 
-    @TransactionType = 'Credit', 
-    @Description = 'Payment for invoice #123';
-
-
-
